@@ -12,7 +12,7 @@ switch ($data['type']) {
     case 'tiger':
     $animal = new Tiger($data);
         break;
-    case 'fich':
+    case 'fish':
     $animal = new Fish($data);
         break;
             case 'eagle':
@@ -25,3 +25,5 @@ switch ($data['type']) {
 $employee = new Employee;
 
 $employee->createAnimal($animal);
+
+header("Location: index.php");

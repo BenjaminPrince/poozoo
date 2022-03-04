@@ -8,7 +8,7 @@ class Fish extends Animal{
 
     }
     public function swim(){
-
+        
 
     }
     public function getType(){

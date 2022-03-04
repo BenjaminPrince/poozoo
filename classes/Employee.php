@@ -7,7 +7,7 @@ public function createAnimal($animal){
 
     include './config/db.php';
     $req = $db->prepare("INSERT INTO animals (name, type, size, weight, age) VALUES (?,?,?,?,?)");
-    $req->execute([$animal->name, $animal->type, $animal->size, $animal->weight, $animal->age]);
+    $req->execute([$animal->name, $animal->getType(), $animal->size, $animal->weight, $animal->age]);
 
 }
 public function showAnimals(){
