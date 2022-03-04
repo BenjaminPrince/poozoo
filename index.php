@@ -16,6 +16,11 @@ include './config/autoload.php';
 
 <body>
 
+
+<!-- -------------------------------------------------------------------------------------------
+                                   nouvel animal
+------------------------------------------------------------------------------------------- -->
+
     <form action="new_animal.php" method="post" class="flex flex-col w-32 p-3 border">
         <h2>Nouvel animal</h2>
         <label for="animal-name-input">Nom</label>
@@ -35,12 +40,47 @@ include './config/autoload.php';
         </select>
         <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-50">Créer</button>
     </form>
+
+<!-- 
+---------------------------------------------------------------------------------------------
+                                       nouvel enclos
+--------------------------------------------------------------------------------------------- -->
+
+    <form action="new_enclos.php" method="post" class="flex flex-col w-32 p-3 border">
+        <h2>Nouvel enclos</h2>
+        <label for="enclos-name-input">Nom</label>
+        <input type="text" name="enclos-name" id="enclos-name-input">
+
+        <label for="enclos-type-input">Type</label>
+        <select type="text" name="enclos-type" id="enclos-type-input">
+            <option value="normal">Normal</option>
+            <option value="aviary">Voliére</option>
+            <option value="marine">Aquarium</option>
+        </select>
+        <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-50">Créer</button>
+    </form>
+
+    <?php
+            $employee = new Employee();
+            $encloss = $employee->showEnclos();
+
+            foreach ($encloss as $enclos);
+
+    ?>
+
     <div class="zoo flex flex-wrap ">
-        <div class="enclosure w-96 h-96 m-3 border border-green-400 border-2 rounded-xl flex flex-wrap justify-center">
-          
-          
-          
-          <?php
+        <div class="flex-column border ">
+            <h5 class="font-bold"><?= $enclos->name; ?></h5>
+            <p>Propreté : <?= $enclos->isClean; ?></p>
+            
+            <button class="bg-cyan-600">Transferer</button>
+            <button class="bg-cyan-600">Nettoyer</button>
+            <button class="bg-cyan-600">Ajouter</button>
+
+
+        <div class="enclosure w-96 h-96 m-3 <?= $enclos->getType() ?> flex flex-wrap justify-center">
+
+            <?php
             $employee = new Employee();
             $animals = $employee->showAnimals();
 
@@ -60,18 +100,18 @@ include './config/autoload.php';
                         <div>Malade : <?= $animal->isSick; ?></div>
                         <div>Dort : <?= $animal->isSleeping; ?></div>
                         <div>Bruit : <?= $animal->makeSound() ?></div>
-                        
-                        
-
-                    </div>
+                    </div> 
                 </div>
 
+        
             <?php
             }
-
-            ?>
+            ?>     
+             </div>
         </div>
     </div>
+    <?php
+ ?>   
     <?php
     if (isset($_GET['alert'])) : ?>
         <div class="absolute sticky bottom-3 left-0 right-0 p-5 m-3 bg-red-100 border border-red-400"><?= $_GET['alert'] ?></div>
