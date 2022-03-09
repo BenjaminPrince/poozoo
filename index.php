@@ -76,13 +76,21 @@ foreach ($animals as $animal) {
                     <div>Faim : <?= $animal->isHungry; ?></div>
                     <div>Malade : <?= $animal->isSick; ?></div>
                     <div>Dort : <?= $animal->isSleeping; ?></div>
+                    
                 </div>
-            </div>
+        </div>
+       
+        
 
             <?php
+            
 }
 
 ?>
+
+
+
+
 </div>
 </div>
 <?php
