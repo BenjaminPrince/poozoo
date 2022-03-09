@@ -8,14 +8,12 @@ class Fish extends Animal{
 
     }
     public function swim(){
-        
+
 
     }
     public function getType(){
         return 'fish';
     }
-
-    
     public function makeSound(){
 
         echo 'po po po bagera';

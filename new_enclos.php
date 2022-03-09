@@ -7,18 +7,17 @@ $data = array(
 );
 
 switch ($data['type']) {
-    case 'normal':
-    $enclos = new Normal($data);
-        break;
+    case 'paddock':
+    $enclos = new Paddock($data);
+    break;
+    case 'aquarium':
+    $enclos = new Aquarium($data);
+    break;
     case 'aviary':
     $enclos = new Aviary($data);
-        break;
-    case 'marine':
-    $enclos = new Marine($data);
-        break;
-        
+    break;
 }
 $employee = new Employee;
 
 $employee->createEnclos($enclos);
-
+header("Location: ./index.php");

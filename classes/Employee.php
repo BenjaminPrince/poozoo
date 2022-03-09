@@ -6,10 +6,19 @@ class Employee{
 public function createAnimal($animal){
 
     include './config/db.php';
-    $req = $db->prepare("INSERT INTO animals (name, type, size, weight, age) VALUES (?,?,?,?,?)");
-    $req->execute([$animal->name, $animal->getType(), $animal->size, $animal->weight, $animal->age]);
+    $req = $db->prepare("INSERT INTO animals (name, type, size, weight, age, enclos_id) VALUES (?,?,?,?,?,?)");
+    $req->execute([$animal->name, $animal->getType(), $animal->getSize(), $animal->weight, $animal->age, $animal->getEnclosId()]);
 
 }
+public function createEnclos($enclos){
+
+    include './config/db.php';
+    $req = $db->prepare("INSERT INTO enclos (name, type) VALUES (?,?)");
+    $req->execute([$enclos->getName(), $enclos->getType()]);
+
+
+}
+
 public function showAnimals(){
 
     include './config/db.php';
@@ -21,24 +30,7 @@ public function showAnimals(){
     $animals = [];
     foreach ($animalsData as $data) {
 
-        switch ($data['type']) {
-            case 'tiger':
-                $animal = new Tiger($data);
-                break;
-
-            case 'fish':
-                $animal = new Fish($data);
-                break;
-
-            case 'eagle':
-                $animal = new Eagle($data);
-                break;
-
-            case 'bear':
-                $animal = new Bear($data);
-                break;
-
-        }
+        $animal = Animal::getSpecie($data);
 
         array_push($animals, $animal);
 
@@ -46,45 +38,30 @@ public function showAnimals(){
     return $animals;
 }
 
-public function createEnclos($enclos){
-
-    include './config/db.php';
-    $req = $db->prepare("INSERT INTO enclos (name, type) VALUES (?,?)");
-    $req->execute([$enclos->name, $enclos->getType()]);
-}
-
 public function showEnclos(){
 
     include './config/db.php';
-
+    // On récupère les données des enclos_
     $recup= $db->prepare("SELECT * FROM enclos");
     $recup->execute();
     $enclosData = $recup->fetchAll();
-    //pour chaque donnés d'enclos on retourne un enclos
-    $encloss = [];
+    //pour chaque donnés d'animal on retourne un animal
+    $enclos = [];
     foreach ($enclosData as $data) {
+        // Pour chaque enclos, on récupère les données des animaux
+        $recup= $db->prepare("SELECT * FROM animals WHERE enclos_id = '".$data['id']."'");
+        $recup->execute();
+        $animalsData = $recup->fetchAll();
+        $data['animals'] = $animalsData;
+        $enclosSimple = Enclos::getSubType($data);
 
-        switch ($data['type']) {
-            case 'normal':
-                $enclos = new Normal($data);
-                break;
-
-            case 'marine':
-                $enclos = new Marine($data);
-                break;
-
-            case 'aviary':
-                $enclos = new Aviary($data);
-                break;
-
-        
-        }
-
-        array_push($encloss, $enclos);
+        array_push($enclos, $enclosSimple);
 
     }
-    return $encloss;
+    return $enclos;
 }
+
+
 }
 
 ?>
