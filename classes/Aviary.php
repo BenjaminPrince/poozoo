@@ -1,6 +1,8 @@
 <?php
 
-class Aviary extends enclos{
+class Aviary extends Enclos{
+
+    public $height;
 
     function __construct($data)
     {
@@ -8,6 +10,7 @@ class Aviary extends enclos{
 
     }
    
+
 
     public function getType(){
         return 'aviary';

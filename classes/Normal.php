@@ -1,6 +1,6 @@
 <?php
 
-class Normal extends enclos{
+class Normal extends Enclos{
 
     function __construct($data)
     {

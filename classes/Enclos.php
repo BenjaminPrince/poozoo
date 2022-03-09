@@ -1,29 +1,34 @@
 
 <?php
 
-abstract class enclos {
+abstract class Enclos {
 
+    private $numberAnimals;
     public $name;
-    public $type;
     public $isClean;
-    public $numberAnimals;
+    public $type;
+    static public $CLEANSTATE_CLEAN = 0;
+    static public $CLEANSTATE_CORRECT = 1;
+    static public $CLEANSTATE_DIRTY = 2;
 
     function __construct($data)
     {
         $this->hydrate($data);
     }
 
-    public function showarraycaracter(){
+    public function showarrayCaracter(){
        
     }
 
-    public function showanimalscaracter(){
+    public function showanimalsCaracter(){
 
     }
-    public function addanimals(){
+    public function addAnimal($animal){
 
     }
-    public function deletanimal(){}
+    public function removeAnimal($animal){
+
+    }
 
     public function countAnimals(){
         $this->numberAnimals = 0;
@@ -41,7 +46,7 @@ abstract class enclos {
    
 }
 
-abstract function getType();
+
 
 }
 

@@ -1,6 +1,8 @@
 <?php
 
-class Marine extends enclos{
+class Marine extends Enclos{
+
+    public $salinity;
 
     function __construct($data)
     {
@@ -13,7 +15,6 @@ class Marine extends enclos{
         return 'marine';
     }
    
-
 }
 
 ?>

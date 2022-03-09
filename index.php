@@ -38,7 +38,7 @@ include './config/autoload.php';
             <option value="fish">Poisson</option>
             <option value="eagle">Aigle</option>
         </select>
-        <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-50">Créer</button>
+        <button type="submit" class="m-2 p-2 border bg-orange-700 hover:bg-orange-500">Créer</button>
     </form>
 
 <!-- 
@@ -57,7 +57,7 @@ include './config/autoload.php';
             <option value="aviary">Voliére</option>
             <option value="marine">Aquarium</option>
         </select>
-        <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-50">Créer</button>
+        <button type="submit" class="m-2 p-2 border bg-orange-700 hover:bg-orange-500">Créer</button>
     </form>
 
     <?php
@@ -73,9 +73,9 @@ include './config/autoload.php';
             <h5 class="font-bold"><?= $enclos->name; ?></h5>
             <p>Propreté : <?= $enclos->isClean; ?></p>
             
-            <button class="bg-cyan-600">Transferer</button>
-            <button class="bg-cyan-600">Nettoyer</button>
-            <button class="bg-cyan-600">Ajouter</button>
+            <button class="bg-orange-600">Transferer</button>
+            <button class="bg-orange-600">Nettoyer</button>
+            <button class="bg-orange-600">Ajouter</button>
 
 
         <div class="enclosure w-96 h-96 m-3 <?= $enclos->getType() ?> flex flex-wrap justify-center">
@@ -90,12 +90,12 @@ include './config/autoload.php';
                 <div class="group animal <?= $animal->getType() ?> relative w-28 h-44 m-1 border border-2 border-gray-300 rounded-xl flex flex-col justify-end items-center bg-contain bg-no-repeat">
                     <div class="font-bold"><?= $animal->name; ?></div>
                     <div class="italic"><?= $animal->age; ?> ans</div>
-                    <div class="animal-details bg-white absolute top-0 left-0 right-0 hidden group-hover:block">
+                    <div class="animal-details bg-black absolute top-0 left-0 right-0 hidden group-hover:block">
 
                         <div>Nom : <?= $animal->name; ?></div>
                         <div>Age : <?= $animal->age; ?></div>
                         <div>Poids : <?= $animal->weight; ?></div>
-                        <div>Taille : <?= $animal->size; ?></div>
+                        <div>Taille : <?= $animal->getSize; ?></div>
                         <div>Faim : <?= $animal->isHungry; ?></div>
                         <div>Malade : <?= $animal->isSick; ?></div>
                         <div>Dort : <?= $animal->isSleeping; ?></div>
@@ -114,7 +114,7 @@ include './config/autoload.php';
  ?>   
     <?php
     if (isset($_GET['alert'])) : ?>
-        <div class="absolute sticky bottom-3 left-0 right-0 p-5 m-3 bg-red-100 border border-red-400"><?= $_GET['alert'] ?></div>
+        <div class="absolute_sticky bottom-3 left-0 right-0 p-5 m-3 bg-red-100 border border-red-400"><?= $_GET['alert'] ?></div>
     <?php endif; ?>
 </body>
 

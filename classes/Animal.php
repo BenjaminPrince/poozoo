@@ -4,7 +4,7 @@ abstract class Animal  {
 
     public $name;
     public $age;
-    public $size;
+    private $size;
     public $weight;
     public $isSleeping;
     public $isHungry;
@@ -14,6 +14,19 @@ function __construct($data)
 {
     $this->hydrate($data);
 }
+
+public function getSize(){
+    return $this->size;
+}
+
+public function setSize(int $argument){
+    if($argument>0){
+    $this->size=$argument;
+    }else{
+        throw new Exception("Le nombre doit être supérieur à zéro.");
+    }
+}
+
 
 public function eat(){
     $this->isHungry = 0;
