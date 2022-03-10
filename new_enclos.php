@@ -20,4 +20,3 @@ switch ($data['type']) {
 $employee = new Employee;
 
 $employee->createEnclos($enclos);
-header("Location: ./index.php");

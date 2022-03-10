@@ -17,7 +17,19 @@ class Aviary extends Enclos{
     }
 
     public function clean() {
-        if ($this->cleanState > 0) $this->cleanState--;
+        if ($this->cleanState != Enclos::$CLEANSTATE_CLEAN) {
+            $this->cleanState--;
+            $this->persist();
+        }
+    }
+
+    public function checkCaracteristicCompatibility($animal)
+    {
+        if ($animal->caracteristic == Animal::$CARACTERISTIC_AERIAL) {
+            return true;
+        }else{
+            return false;
+        }
     }
 }
 

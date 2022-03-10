@@ -5,7 +5,7 @@ class Fish extends Animal{
     function __construct($data)
     {
         parent::__construct($data);
-
+        $this->caracteristic = parent::$CARACTERISTIC_MARINE;
     }
     public function swim(){
 
@@ -14,10 +14,10 @@ class Fish extends Animal{
     public function getType(){
         return 'fish';
     }
-    public function makeSound(){
 
-        echo 'po po po bagera';
-       }
+    public function sound(){
+        return 'PO PO PO PO';
+    }
 }
 
 ?>

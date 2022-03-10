@@ -5,6 +5,7 @@ class Bear extends Animal{
     function __construct($data)
     {
         parent::__construct($data);
+        $this->caracteristic = parent::$CARACTERISTIC_TERRESTRIAL;
 
     }
     public function climbTree(){
@@ -15,10 +16,9 @@ class Bear extends Animal{
     public function getType(){
         return 'bear';
     }
-    public function makeSound(){
-
-        echo 'greeee ';
-       }
+    public function sound(){
+        return 'GRRRRRRRR';
+    }
 
 }
 

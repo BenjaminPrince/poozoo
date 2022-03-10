@@ -2,8 +2,7 @@
 include "./config/db.php";
 include './config/autoload.php';
 $employee = new Employee();
-$animals = $employee->showAnimals();
-$enclos = $employee->showEnclos();
+$enclos = $employee->getAllEnclos();
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +16,7 @@ $enclos = $employee->showEnclos();
     <title>PooZoo</title>
 </head>
 <body>
-    <div class="flex flex-row">
+    <div class="flex flex-row p-2">
         <form action="new_animal.php" method="post" class="flex flex-col w-35 p-3 border">
             <h2 class="font-bold">Nouvel animal</h2>
             <label for="animal-name-input">Nom</label>
@@ -41,41 +40,69 @@ $enclos = $employee->showEnclos();
                     <option value="<?= $e->id ?>"><?= $e->getName() ?></option>
                 <?php endforeach; ?>
             </select>
-            <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-500">Créer</button>
+            <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-300">Créer</button>
         </form>
 
-        <form action="new_enclos.php" method="post" class="flex flex-col w-35 p-3 border">
-            <h2 class="font-bold">Nouvel Enclos</h2>
-            <label for="enclos-name-input">Nom</label>
-            <input type="text" name="enclos-name" id="enclos-name-input">
-            <label for="enclos-type-input">type</label>
-            <select name="enclos-type" id="enclos-type-input">
-                <option value="aquarium">Aquarium</option>
-                <option value="paddock">Plaine</option>
-                <option value="aviary">Volière</option>
-            </select>
-            <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-500">Créer</button>
-        </form>
+        <div class="ml-4 flex flex-col">
+            <form action="new_enclos.php" method="post" class="flex flex-col w-35 p-3 border">
+                <h2 class="font-bold">Nouvel Enclos</h2>
+                <label for="enclos-name-input">Nom</label>
+                <input type="text" name="enclos-name" id="enclos-name-input">
+                <label for="enclos-type-input">type</label>
+                <select name="enclos-type" id="enclos-type-input">
+                    <option value="aquarium">Aquarium</option>
+                    <option value="paddock">Plaine</option>
+                    <option value="aviary">Volière</option>
+                </select>
+                <button type="submit" class="m-2 p-2 border bg-yellow-100 hover:bg-yellow-300">Créer</button>
+            </form>
+            <form action="randomize.php" class="mt-4 flex flex-col w-35 p-3 border">
+                <button class="border-2 border-red-400 p-2 rounded bg-red-100 hover:bg-red-300" type="submit">Randomize</button>
+            </form>
+        </div>
     </div>
-  
-    <div class="zoo flex flex-wrap ">
-        <div class="enclosure w-96 h-96 m-3 border border-green-400 border-2 rounded-xl flex flex-wrap justify-center">
-<?php
 
-foreach ($animals as $animal) {
+    <div class="zoo flex flex-wrap pt-10">
+    <?php foreach ($enclos as $e) { ?>
+
+        <div class="enclosure relative w-96 h-96 mx-3 my-8 border-green-400 border-2 rounded-xl flex flex-wrap justify-center">
+            <div class="enclos-header absolute bottom-full left-4 flex space-x-2">
+                <div class="border-green-400 border-2 z-10 p-2 font-bold bg-white"><?= $e->getName() ?></div>
+                <form action="./employee_actions.php" method="post" class="actions">
+                    <input type="hidden" name="enclos-id" value="<?= $e->id ?>">
+                    <button class="border-2 border-green-400 p-2 rounded bg-yellow-100 hover:bg-yellow-300" type="submit" name="clean">Nettoyer</button>
+                    <button class="border-2 border-green-400 p-2 rounded bg-yellow-100 hover:bg-yellow-300" type="submit" name="feed">Nourrir</button>
+                </form>
+            </div>
+<?php
+foreach ($e->animals as $animal) {
     ?>
 
             <div class="group animal <?= $animal->getType() ?> relative w-28 h-44 m-1 border-2 border-gray-300 rounded-xl flex flex-col justify-end items-center bg-contain bg-no-repeat">
                 <div class="font-bold"><?= $animal->name; ?></div>
                 <div class="italic"><?= $animal->age;?> ans</div>
-                <div class="animal-details bg-white absolute top-0 bottom-0 left-0 right-0 hidden group-hover:block">
-                    <div>Nom : <?= $animal->name; ?></div>
-                    <div>Age : <?= $animal->age; ?></div>
-                    <div>Poids : <?= $animal->weight; ?></div>
-                    <div>Taille : <?= $animal->getSize(); ?></div>
-                    <div>Faim : <?= $animal->isHungry; ?></div>
-                    <div>Malade : <?= $animal->isSick; ?></div>
-                    <div>Dort : <?= $animal->isSleeping; ?></div>
+                <div class="animal-details border-2 border-gray-300 rounded-xl justify-between bg-white absolute top-0 bottom-0 -left-full right-0 hidden group-hover:flex space-x-2 z-20">
+                    <form action="./animal_actions.php" method="post" class="actions flex flex-col">
+                        <input type="hidden" name="enclos-id" value="<?= $e->id ?>">
+                        <input type="hidden" name="animal-id" value="<?= $animal->id ?>">
+                        <button class="border p-2 rounded bg-yellow-100 hover:bg-yellow-300" type="submit" name="make-sound">Crier</button>
+                        <button class="border p-2 rounded bg-yellow-100 hover:bg-yellow-300" type="submit" name="heal">Soigner</button>
+                        <?php foreach ($enclos as $e2) {
+                            if ($e->id != $e2->id) {
+                            // Ici, on génère un bouton de transfert pour chaque animal
+                            ?>
+                            <button class="border p-2 rounded bg-yellow-100 hover:bg-yellow-300" type="submit" name="transfert" value="<?= $e2->id ?>">-> <?= $e2->getName() ?></button>
+                        <?php }} ?>
+                    </form>
+                    <div class="info w-1/2">
+                        <div>Nom : <?= $animal->name; ?></div>
+                        <div>Age : <?= $animal->age; ?></div>
+                        <div>Poids : <?= $animal->weight; ?></div>
+                        <div>Taille : <?= $animal->getSize(); ?></div>
+                        <div>Faim : <?= $animal->isHungry; ?></div>
+                        <div>Malade : <?= $animal->isSick; ?></div>
+                        <div>Dort : <?= $animal->isSleeping; ?></div>
+                    </div>
                 </div>
             </div>
 
@@ -84,10 +111,12 @@ foreach ($animals as $animal) {
 
 ?>
 </div>
+<?php } ?>
 </div>
 <?php
+
 if (isset($_GET['alert'])) : ?>
-<div class="sticky bottom-3 left-0 right-0 p-5 m-3 bg-red-100 border border-red-400"><?= $_GET['alert'] ?></div>
+<div class="absolute top-3 right-3 p-5 m-3 bg-red-100 border border-red-400"><?= $_GET['alert'] ?></div>
 <?php endif; ?>
 </body>
 </html>

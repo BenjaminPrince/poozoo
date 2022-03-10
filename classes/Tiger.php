@@ -5,7 +5,7 @@ class Tiger extends Animal{
     function __construct($data)
     {
         parent::__construct($data);
-
+        $this->caracteristic = parent::$CARACTERISTIC_TERRESTRIAL;
     }
     public function errant(){
 
@@ -14,9 +14,8 @@ class Tiger extends Animal{
    public function getType(){
        return 'tiger';
    }
-   public function makeSound(){
-
-    echo 'griii bagera';
+   public function sound(){
+        return 'ROARRRRRR';
    }
 
 

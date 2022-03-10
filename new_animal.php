@@ -15,5 +15,3 @@ $animal = Animal::getSpecie($data);
 $employee = new Employee;
 
 $employee->createAnimal($animal);
-
-header("Location: ./index.php");
