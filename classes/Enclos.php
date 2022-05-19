@@ -28,7 +28,7 @@ abstract class Enclos{
     }
 
     private function getAnimals() {
-        $database = new Database();
+        $database = Database::getInstance();
         $animalsData = $database->getAllWhere(Animal::$TABLE, 'enclos_id', $this->id);
 
         return array_map(function($animalData){
@@ -49,7 +49,7 @@ abstract class Enclos{
     }
 
     protected function persist(){
-        $database = new Database();
+        $database = Database::getInstance();
         $database->update('enclos', $this->id, $this->toSql());
     }
 

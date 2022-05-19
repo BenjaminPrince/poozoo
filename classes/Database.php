@@ -3,9 +3,19 @@
 class Database {
     private $db;
 
-    public function __construct() {
-        include './config/db.php';
-        $this->db = $db;
+    private function __construct() {}
+
+    private static $instance;
+
+    static function getInstance() {
+        if (!self::$instance) {
+            include './config/db.php';
+
+            self::$instance = new Database();
+            self::$instance->db = $db;
+        }
+
+        return self::$instance;
     }
 
     public function add($table, $values) {

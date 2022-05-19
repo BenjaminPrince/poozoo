@@ -27,7 +27,7 @@ abstract class Animal  {
     }
 
     public function persist(){
-        $database = new Database();
+        $database = Database::getInstance();
         $database->update('animals', $this->id, $this->toSql());
     }
 

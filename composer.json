@@ -1,0 +1,17 @@
+{
+    "name": "garage404/poozoo",
+    "autoload": {
+        "psr-4": {
+            "Garage404\\Poozoo\\": ""
+        }
+    },
+    "authors": [
+        {
+            "name": "svadhis",
+            "email": "imeian@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}
